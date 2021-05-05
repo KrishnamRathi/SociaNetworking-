@@ -1,0 +1,104 @@
+		.container-1{
+			display: flex;
+		}
+		.container-1 div{
+			padding: 10px;
+		}
+		.box-1{
+			flex:1;
+			border:1px #333 solid;
+			background-color: lightgray;
+		}
+		.box-2{
+			flex:3; 
+			border: 1px #333 solid;
+		}
+		.box-3{
+			flex:1;
+		}
+		.box-3{
+			background-color: lightgray;
+			border: 1px #333 solid;
+		}
+		a{
+			text-decoration:none;
+			color: #000;
+		}
+		a:hover
+		{
+			color:green;
+		}
+		.tabs .tab-pic img{
+			border-radius: 50%;
+			height: 190px;
+			width: 190px;
+			border:5px white solid;
+		}
+		.centre{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.search input[type=text]{
+			font-size: 17px solid #ccc;
+			align-items: center;
+			flex-direction: row;
+			display: flex;
+			border-radius: 5px;
+			width: 250px;
+			height:44px;
+			border: none;
+		}
+		.last button{
+			cursor: pointer;
+			background-color: #0074D9;
+			color: #f2f2f2;
+			border-radius: 5px;
+			font-size: 17px;
+		}
+		.last button:hover{
+			background-color: #ddd;
+			color: black;
+		}
+		.Likes button{
+			cursor: pointer;
+			background-color: green;
+			color: white;
+			border-radius: 5px;
+		}
+		.tfrnd button{
+			cursor: pointer;
+			background-color: orange;
+			color: white;
+			border-radius: 5px;
+		}	
+		.tfrnd{
+			margin: 10px;
+			background-color: white;
+		}	
+		.Likes{
+			margin: 10px;
+			background-color: white;
+		}
+		.tposts{
+			margin: 10px;
+			background-color: white;
+		}
+		.detail{
+			background-color: #333333;
+			color: white;
+			margin: none;
+			padding: none;
+		}
+		.nav-tabs li{
+			padding: 15px;
+			font-size: 20px;
+		}
+		.nav-tabs li a{
+			color: black;
+			display: block;
+		}
+		.nav-tabs li:hover{
+			background: #198754;
+		}
+

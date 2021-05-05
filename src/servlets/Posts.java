@@ -11,6 +11,7 @@ import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
@@ -18,14 +19,23 @@ import servlets.DatabaseConnection;
 import models.Post;
 import models.User;
 
+
 @WebServlet("/home")
 
 public class Posts extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
 	        try {
-	  
-	            
+	        	Connection con = DatabaseConnection.initializeDatabase();
+    			String query="insert into post(author, content, created_at) values (?, ?, now())";
+    			PreparedStatement st = con.prepareStatement(query);
+    			HttpSession session = request.getSession();
+    			st.setString(1, (String)session.getAttribute("user_id"));
+    			st.setString(2, request.getParameter("content"));
+    			int rs = st.executeUpdate();
+    			if(rs>0) {
+    				response.sendRedirect("home");
+    			}
 	        }
 	        catch (Exception e) {
 	            e.printStackTrace();

@@ -1,53 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-<%@page import="servlets.Posts, models.Post, java.util.*, java.io.*" %>
+<%@page import="servlets.Posts, models.Post, java.util.*, java.io.*, javax.servlet.http.HttpSession" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	<link rel ="stylesheet" href ="./css/post.css">
+	<link rel ="stylesheet" href ="./css/home.css">
+	<script src="https://kit.fontawesome.com/8a4f70c80a.js" crossorigin="anonymous"></script>	
 </head>
-<style>
-.sidebar{
-	width: 200px;
-	background-color: lightgray;
-	height: 100vh;
-}
-.nav{
-	padding-top: 200px;
-	padding-left: 50px;
-}
-body {
-	display: flex;
-}
-.header{
-	height: 50px;
-	background-color: lightgray;
-	display: flex;
-	justify-content: space-between;
-	padding: 5px;
-}
-.form-control{
-	width: 400px;
-	min-width: 200px;
-}
-.input-group{
-	width: 600px;
-}
-.content{
-	width: 100%;
-}
-.posts{
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-}
-</style>
 <body>
+	<%String user_id= (String)session.getAttribute("user_id");
+		if(user_id==null) response.sendRedirect("login");
+	%>
 	<div class="sidebar">
 		<nav class="nav flex-column">
   			<a class="nav-link active" aria-current="page" href="#">Home</a>
- 			<a class="nav-link" href="#">Profile</a>
+ 			<a class="nav-link" href="./profile/?id=<%= user_id%>">Profile</a>
  			<a class="nav-link" href="#">Post</a>
 		</nav>
 	</div>
@@ -57,29 +29,57 @@ body {
         		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         		<button class="btn btn-outline-success" type="submit">Search</button>
       		</form>
-      		<button type="button" class="btn btn-success" id="logout">Logout</button>
-		</div>
+      		<form action="logout" method="get">
+      			<input class="btn btn-success" id="logout" type="submit" value="Logout"/>
+      		</form>
+	</div>
       	<div class="posts">
-      		<div class="input-group">
+      		<form class="input-group" action="home" method="post">
   				<span class="input-group-text">Post something</span>
-  				<textarea class="form-control" aria-label="With textarea"></textarea>
-  				<button type="button" class="btn btn-success" id="post">Post</button>
-      	</div>
+  				<textarea class="form-control" aria-label="With textarea" name="content"></textarea>
+  				<button type="submit" class="btn btn-success" id="post">Post</button>
+      	</form>
       	<div>
+    		<div class="post-container">
       		<%
       			List<Post> posts = (List<Post>)request.getAttribute("posts");
      			PrintWriter pw=new PrintWriter(System.out);
       			for(Post p: posts){
       			%>
-      				<div>
-      					<h2><%=p.getContent()%></h2>
-      					<h4>Author: <%=p.getAuthor()%></h4>
-      					<h4>Posted at: <%=p.getCreated_at()%></h4>
-      				</div>
+		<div class= "post-content">
+			<div class="post-header">
+				<div><h3><%=p.getAuthor()%></h3>
+				<small><%=p.getCreated_at()%></small></div>
+				
+			</div>
+			<div class ="post-tag-line">
+				<%=p.getContent()%>
+			</div>
+			<div class="image-container">
+				
+				<img alt="post-image" src="https://wallpapercave.com/wp/wp2880194.jpg">
+			</div>
+			<div class="like-comment">
+				<!--<div class="like">
+					<i class="fas fa-thumbs-up"></i>
+					<h6>23</h6>
+				</div>
+				<div class="dislike">
+					<i class="fas fa-thumbs-down"></i>
+					<h6>34</h6>
+				</div>
+				<div class="comment">
+					<i class="fas fa-comment"></i>
+					<h6>45</h6>
+				</div>-->
+			</div>
+			
+		</div>
       			<%
       			}
       			
       		%>
+      		</div>
       	</div>
 	</div>
 </body>
